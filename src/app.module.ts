@@ -9,7 +9,9 @@ import NodeEnv from 'common/enums/node-env.enum'
   controllers: [AppController],
   imports: [
     ConfigModule.forRoot({
-      ignoreEnvFile: env.get('NODE_ENV') !== NodeEnv.Dev,
+      ignoreEnvFile:
+        env.get('NODE_ENV') === NodeEnv.Prd ||
+        env.get('NODE_ENV') === NodeEnv.Stg,
       isGlobal: true,
     }),
   ],
