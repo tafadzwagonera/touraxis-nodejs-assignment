@@ -7,7 +7,7 @@ import NodeEnv from 'common/enums/node-env.enum'
 import type { LogLevel } from '@nestjs/common'
 
 async function bootstrap() {
-  const isProd = env.get('NODE_ENV') !== NodeEnv.Dev
+  const isProd = env.get('NODE_ENV') === NodeEnv.Prd
 
   const logLevel: LogLevel[] = isProd
     ? ['error', 'fatal', 'log']
