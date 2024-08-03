@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import { AppModule } from './app.module'
+import { ConfigService } from '@nestjs/config'
 import { Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import env from 'config/env.config'
@@ -17,7 +18,10 @@ async function bootstrap() {
     logger: logLevel,
   })
 
-  await app.listen(3000)
+  const configService = app.get(ConfigService)
+  const port = configService.get<number>('PORT', 0)
+
+  await app.listen(port)
 
   Logger.log(`Server listening at ${await app.getUrl()}`)
 }
