@@ -3,25 +3,25 @@ import {
   PrimaryKey,
   Property,
   SerializedPrimaryKey,
-} from '@mikro-orm/core';
+} from '@mikro-orm/core'
 import { ObjectId } from '@mikro-orm/mongodb'
 import { ApiProperty } from '@nestjs/swagger'
 
 export abstract class CustomBase extends BaseEntity {
   @ApiProperty()
   @PrimaryKey()
-  _id: ObjectId;
+  _id: ObjectId
 
   @ApiProperty()
   @Property()
-  createdAt = new Date();
+  createdAt = new Date()
 
   @ApiProperty()
   @Property()
   @SerializedPrimaryKey()
-  id: string;
+  id: string
 
   @ApiProperty()
   @Property({ onUpdate: () => new Date() })
-  updatedAt = new Date();
+  updatedAt = new Date()
 }
