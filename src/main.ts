@@ -11,7 +11,7 @@ async function bootstrap() {
 
   const logLevel: LogLevel[] = isProd
     ? ['error', 'fatal', 'log']
-    : ['debug', 'error', 'fatal', 'log', 'verbose', 'warn'];
+    : ['debug', 'error', 'fatal', 'log', 'verbose', 'warn']
 
   const app = await NestFactory.create(AppModule, {
     logger: logLevel,
