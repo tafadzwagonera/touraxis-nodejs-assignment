@@ -11,7 +11,7 @@ import env from 'config/env.config'
 import NodeEnv from 'common/enums/node-env.enum'
 
 const isProd =
-    env.get('NODE_ENV') === NodeEnv.Prd || env.get('NODE_ENV') === NodeEnv.Stg
+  env.get('NODE_ENV') === NodeEnv.Prd || env.get('NODE_ENV') === NodeEnv.Stg
 
 @Module({
   imports: [
