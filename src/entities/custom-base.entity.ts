@@ -14,7 +14,7 @@ export abstract class CustomBase extends BaseEntity {
 
   @ApiProperty()
   @Property()
-  createdAt = new Date()
+  created_at = new Date()
 
   @ApiProperty()
   @Property()
@@ -23,5 +23,5 @@ export abstract class CustomBase extends BaseEntity {
 
   @ApiProperty()
   @Property({ onUpdate: () => new Date() })
-  updatedAt = new Date()
+  updated_at = new Date()
 }
