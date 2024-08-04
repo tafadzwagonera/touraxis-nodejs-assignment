@@ -55,10 +55,11 @@ async function bootstrap() {
     },
   }
 
-  SwaggerModule.setup('/', app, document, setupOpts)
+  const prefix = 'api'
 
+  SwaggerModule.setup(prefix, app, document, setupOpts)
+  app.setGlobalPrefix(prefix)
   await app.listen(port)
-
   Logger.log(`Server listening at ${await app.getUrl()}`)
 }
 
