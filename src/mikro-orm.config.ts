@@ -22,7 +22,7 @@ export default defineConfig({
   discovery: { warnWhenNoEntities: false },
   driver: MongoDriver,
   ensureIndexes: true,
-  entities: ['./dist/entities'],
+  entities: ['./dist/src/entities'],
   entitiesTs: ['./src/entities'],
   extensions: [Migrator, EntityGenerator, SeedManager],
   highlighter: new MongoHighlighter(),
