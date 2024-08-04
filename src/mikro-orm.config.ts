@@ -16,7 +16,6 @@ const isProd =
   env.get('NODE_ENV') === NodeEnv.Prd || env.get('NODE_ENV') === NodeEnv.Stg
 
 export default defineConfig({
-  allowGlobalContext: env.get('NODE_ENV') === NodeEnv.Tst,
   clientUrl: env.get('MONGODB_URI') as string,
   debug: !isProd,
   discovery: { warnWhenNoEntities: false },
