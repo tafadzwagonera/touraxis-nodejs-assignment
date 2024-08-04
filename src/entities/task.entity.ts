@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { CustomBase } from './custom-base.entity'
-import { Entity, ManyToOne, PrimaryKey, Property } from '@mikro-orm/core'
+import { DateType, Entity, ManyToOne, PrimaryKey, Property } from '@mikro-orm/core'
 import { ObjectId } from '@mikro-orm/mongodb'
 import { User } from './user.entity'
 
@@ -9,6 +9,10 @@ export class Task extends CustomBase {
   @ApiProperty()
   @PrimaryKey()
   _id: ObjectId
+
+  @ApiProperty()
+  @Property()
+  date_time?: DateType
 
   @ApiProperty()
   @Property()
