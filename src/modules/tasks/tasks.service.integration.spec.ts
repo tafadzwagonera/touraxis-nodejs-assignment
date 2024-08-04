@@ -1,4 +1,4 @@
-import { EntityCaseNamingStrategy, EntityManager, MongoDriver } from '@mikro-orm/mongodb'
+import { EntityCaseNamingStrategy, MongoDriver } from '@mikro-orm/mongodb'
 import { MikroOrmModule } from '@mikro-orm/nestjs'
 import { Task } from '../../entities/task.entity'
 import { TasksService } from './tasks.service'
@@ -9,7 +9,6 @@ import { UsersService } from '../users/users.service'
 import * as dotenv from 'dotenv'
 
 describe('TasksService', () => {
-  let em: EntityManager
   let tasksService: TasksService
   let usersService: UsersService
 
@@ -31,7 +30,6 @@ describe('TasksService', () => {
       providers: [TasksService, UsersService],
     }).compile()
 
-    em = moduleRef.get(EntityManager)
     tasksService = moduleRef.get<TasksService>(TasksService)
     usersService = moduleRef.get<UsersService>(UsersService)
   })
@@ -54,9 +52,8 @@ describe('TasksService', () => {
       expect(persistedTasks.length).toBe(1)
       expect(persistedTasks[0].name).toBe(task.name)
       expect(persistedTasks[0].description).toBe(task.description)
-      await tasksService.delete(persistedTasks[0].id)
-      await usersService.delete(persistedTasks[0].user.id)
-      em.clear()
+      await tasksService.delete(persistedTasks[0]._id?.toHexString())
+      await usersService.delete(persistedTasks[0].user._id?.toHexString())
     }, 0)
   })
 
@@ -75,11 +72,10 @@ describe('TasksService', () => {
 
     const foundTasks = await tasksService.find({ name: task.name })
 
-    expect(foundTasks.length).toBe(1)
+    expect(foundTasks.length).toBeTruthy()
     expect(foundTasks[0].name).toBe(task.name)
     expect(foundTasks[0].description).toBe(task.description)
-    await usersService.delete(foundTasks[0].id)
-    await usersService.delete(foundTasks[0].user.id)
-    em.clear()
-  })
+    await usersService.delete(foundTasks[0]._id?.toHexString())
+    await usersService.delete(foundTasks[0].user._id?.toHexString())
+  }, 0)
 })

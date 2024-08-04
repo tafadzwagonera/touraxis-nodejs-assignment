@@ -1,15 +1,24 @@
+import { EntityManager } from '@mikro-orm/core'
+import { TasksController } from '../tasks/tasks.controller'
+import { TasksService } from '../tasks/tasks.service'
 import { Test, TestingModule } from '@nestjs/testing'
-import { TasksController } from './tasks.controller'
 
 describe('TasksController', () => {
   let controller: TasksController
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    const moduleRef: TestingModule = await Test.createTestingModule({
       controllers: [TasksController],
+      providers: [
+        TasksService,
+        {
+          provide: EntityManager,
+          useValue: EntityManager,
+        },
+      ],
     }).compile()
 
-    controller = module.get<TasksController>(TasksController)
+    controller = moduleRef.get<TasksController>(TasksController)
   })
 
   it('should be defined', () => {

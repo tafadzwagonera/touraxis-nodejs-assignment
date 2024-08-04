@@ -20,7 +20,7 @@ import {
 import { EntityData } from '@mikro-orm/core'
 import { User } from 'src/entities/user.entity'
 import { UsersService } from './users.service'
-import { Task } from 'src/entities/task.entity'
+import { Task } from '../../entities/task.entity'
 import { TasksService } from '../tasks/tasks.service'
 
 @ApiBearerAuth()
@@ -28,8 +28,8 @@ import { TasksService } from '../tasks/tasks.service'
 @Controller('users')
 export class UsersController {
   constructor(
-    private readonly usersService: UsersService,
     private readonly tasksService: TasksService,
+    private readonly usersService: UsersService,
   ) {}
 
   @ApiOperation({ summary: 'Create user(s).' })

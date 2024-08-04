@@ -16,7 +16,7 @@ import {
   Query,
 } from '@nestjs/common'
 import { Task } from 'src/entities/task.entity'
-import { TasksService } from './tasks.service'
+import { TasksService } from '../tasks/tasks.service'
 
 @ApiBearerAuth()
 @ApiTags('tasks')
