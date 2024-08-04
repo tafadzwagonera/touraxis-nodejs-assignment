@@ -1,6 +1,6 @@
 import { EntityManager, EntityData, Loaded, FilterQuery } from '@mikro-orm/core'
 import { Injectable } from '@nestjs/common'
-import { Task } from 'src/entities/task.entity'
+import { Task } from '../../entities/task.entity'
 
 @Injectable()
 export class TasksService {
