@@ -1,4 +1,5 @@
 import { EntityCaseNamingStrategy, MongoDriver } from '@mikro-orm/mongodb'
+import { Logger } from '@nestjs/common'
 import { MikroOrmModule } from '@mikro-orm/nestjs'
 import { Task } from '../../entities/task.entity'
 import { TasksService } from './tasks.service'
@@ -27,7 +28,16 @@ describe('TasksService', () => {
           namingStrategy: EntityCaseNamingStrategy,
         }),
       ],
-      providers: [TasksService, UsersService],
+      providers: [
+        {
+          provide: Logger,
+          useValue: {
+            log: jest.fn((args: any) => console.info(args)),
+          },
+        },
+        TasksService,
+        UsersService
+      ],
     }).compile()
 
     tasksService = moduleRef.get<TasksService>(TasksService)
