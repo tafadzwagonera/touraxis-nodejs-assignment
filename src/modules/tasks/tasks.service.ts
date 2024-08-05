@@ -32,9 +32,7 @@ export class TasksService {
   }
 
   async find(where: FilterQuery<Task>): Promise<Loaded<Task>[]> {
-    if ((Object.keys(where) ?? []).length)
-      return await this.em.find(Task, where)
-
+    if (Object.keys(where ?? []).length) return await this.em.find(Task, where)
     return await this.em.find(Task, {})
   }
 
