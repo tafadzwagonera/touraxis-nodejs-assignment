@@ -5,7 +5,7 @@ import { ObjectId } from '@mikro-orm/mongodb'
 import { User } from './user.entity'
 
 export enum Status {
-  Complete = 'complete',
+  Done = 'done',
   InProgress = 'in-progress',
   Pending = 'pending',
 }

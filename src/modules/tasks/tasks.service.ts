@@ -77,10 +77,10 @@ export class TasksService {
       )
 
       for (const taskToUpdate of tasksToUpdate) {
-        taskToUpdate.status = Status.Complete
+        taskToUpdate.status = Status.Done
 
         this.logger.log(
-          `Task '${taskToUpdate.name}' marked as '${Status.Complete}'`,
+          `Task '${taskToUpdate.name}' marked as '${Status.Done}'`,
           TasksService.name,
         )
       }
