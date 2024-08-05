@@ -31,12 +31,12 @@ export class UsersService {
     await this.em.flush()
   }
 
-  async find(): Promise<Loaded<User>[]> {
-    return await this.em.find(User, {})
+  async find(): Promise<Loaded<User, 'tasks'>[]> {
+    return await this.em.find(User, {}, { populate: ['tasks'] })
   }
 
   async findOne(id: string): Promise<Loaded<User, 'tasks'> | null> {
-    return await this.em.findOne(User, { id })
+    return await this.em.findOne(User, { id }, { populate: ['tasks'] })
   }
 
   async update(
