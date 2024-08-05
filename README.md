@@ -3,6 +3,8 @@ This solution contains a RESTful API built using [NestJS](https://docs.nestjs.co
 ## Table of Contents
 - [Installation](#installation)
 - [How to Run](#how-to-run)
+- [Running Tests](#running-tests)
+- [Concessions and Decisions](#concessions-and-decisions)
 
 ## Installation
 
@@ -60,7 +62,7 @@ At this point the server should  be running and ready to handle requests. You sh
 [Nest] 64090  - dd/MM/yyyy, HH:MM:ss     LOG [InstanceLoader] ConfigHostModule dependencies initialized +1ms
 ```
 
-## Running Tets
+## Running Tests
 
 To run tests, use the following commands
 
