@@ -3,6 +3,7 @@ import { AppService } from './app.service'
 import { ConfigModule } from '@nestjs/config'
 import { DatabaseModule } from 'database/database.module'
 import { Module } from '@nestjs/common'
+import { ScheduleModule } from '@nestjs/schedule'
 import { TasksModule } from './modules/tasks/tasks.module'
 import { UsersModule } from './modules/users/users.module'
 import env from 'config/env.config'
@@ -18,6 +19,7 @@ import NodeEnv from 'common/enums/node-env.enum'
       isGlobal: true,
     }),
     DatabaseModule,
+    ScheduleModule.forRoot(),
     TasksModule,
     UsersModule,
   ],
