@@ -1,13 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { CustomBase } from './custom-base.entity'
-import {
-  DateType,
-  Entity,
-  Enum,
-  ManyToOne,
-  PrimaryKey,
-  Property,
-} from '@mikro-orm/core'
+import { Entity, Enum, ManyToOne, PrimaryKey, Property } from '@mikro-orm/core'
 import { ObjectId } from '@mikro-orm/mongodb'
 import { User } from './user.entity'
 
@@ -25,7 +18,7 @@ export class Task extends CustomBase {
 
   @ApiProperty()
   @Property()
-  date_time?: DateType
+  date_time?: Date
 
   @ApiProperty()
   @Property()
@@ -37,7 +30,7 @@ export class Task extends CustomBase {
 
   @ApiProperty()
   @Property()
-  next_execute_date_time?: DateType
+  next_execute_date_time?: Date
 
   @ApiProperty()
   @Property()
