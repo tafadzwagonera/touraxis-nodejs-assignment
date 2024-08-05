@@ -36,7 +36,7 @@ describe('TasksService', () => {
           },
         },
         TasksService,
-        UsersService
+        UsersService,
       ],
     }).compile()
 
