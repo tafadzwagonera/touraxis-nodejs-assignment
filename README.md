@@ -1,73 +1,90 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+This solution contains a RESTful API built using [NestJS](https://docs.nestjs.com/), [MikroORM](https://mikro-orm.io/) a TypeScript Object Relational Mapper, and [MongoDb](https://www.mongodb.com/) for persistence.
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Table of Contents
+- [Installation](#installation)
+- [How to Run](#how-to-run)
+- [Running Tests](#running-tests)
+- [Concessions and Decisions](#concessions-and-decisions)
 
 ## Installation
 
+1. Install Node.js version `>= v20.10.0`. If you don't have node.js `>= v20.10.0` readily installed you can install NVM as per the following [instructions](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating). Once NVM is installed you can follow the instructions below to install a compatible Node.js version. You can check the available versions using `nvm ls-remote` and choose a version from the list. 
 ```bash
-$ npm install
+nvm use 20.10.0
+nvm alias default 20.10.0
+# You'll need to restart `bash` from terminal with `source ~/.bashrc` for each window or by closing and starting a new Terminal application.
 ```
 
-## Running the app
+2. Install MongoDB as instructed [here](https://www.mongodb.com/docs/manual/administration/install-community/). How you install MongoDB depends on your operating system. Visit the appropriate guide at the provided link for a compatible installation. Once you've MongoDB installed you should start your service on your local machine and ensure that MongoDB is running on port `27017`.
 
+3. Now that you've the correct Node.js version install you can `git clone` the repository.
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+  git@github.com:tafadzwagonera/touraxis-nodejs-assignment.git
 ```
 
-## Test
+4. Install dependencies.
+```bash
+cd ~/path/to/touraxis-nodejs-assignment # Verify that you're in `touraxis-nodejs-assignment` directory.
+npm i
+```
+Now that you've everything set up it's time to run the application.
+
+## How To Run
+
+To run the server, use the following commands
 
 ```bash
-# unit tests
+pwd # Verify that you're in `/path/to/touraxis-nodejs-assignment` directory
+cp .env.example .env
+vim .env # Enter value for environment variables and save. See Exhibit 1 for a minimal .env.
+cat .env # Verify that `.env` has the correct values.
+npm run start:dev
+```
+
+#### Exhibit 1
+```bash
+NO_COLOR=
+MONGODB_URI=mongodb://127.0.0.1:27017/touraxis
+NODE_ENV=development
+PORT=3000
+SWAGGER_API_BEARER_TOKEN=.... # A meaningful `uuid` of your choice. For example `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjMONTY30DkwIiwibmFtZSI6IkpvaG4gRG91IiwiaXNTb2NpYWwiOnRydWv9.4pcPyMD09o1PSyXnrXCjTwXyr4BsezdI1AVTmud2fU4`.
+```
+
+At this point the server should  be running and ready to handle requests. You should see output logs of the following nature
+
+```bash
+[HH:MM:ss] File change detected. Starting incremental compilation...
+
+[HH:MM:ss] Found 0 errors. Watching for file changes.
+
+[Nest] 64090  - dd/MM/yyyy, HH:MM:ss     LOG [NestFactory] Starting Nest application...
+[Nest] 64090  - dd/MM/yyyy, HH:MM:ss     LOG [InstanceLoader] HttpModule dependencies initialized +24ms
+[Nest] 64090  - dd/MM/yyyy, HH:MM:ss     LOG [InstanceLoader] ConfigHostModule dependencies initialized +1ms
+```
+
+## Running Tests
+
+To run tests, use the following commands
+
+```bash
+cp .env.example .env.test
+vim .env.test # Enter value for environment variables and save. See Exhibit 2 for a minimal `.env.test`
+cat .env.test # Verify that `.env.test` has the correct values.
+```
+
+#### Exhibit 2
+```bash
+MONGODB_URI=mongodb://127.0.0.1:27017/test
+```
+Then run the tests
+
+```bash
 $ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
 
-## Support
+# Concessions and Decisions
+## Migrations
+I acknowledge that in a production environment, every modification to an entity should be accompanied by a migration strategy. However, for the purposes of this exercise, I decided not to implement them. Additionally, the combination of MikroORM and NestJS configuration presented some challenges in navigating the migration setup.  While I recognize the importance of migrations, I opted to focus my efforts on other aspects of the technical assessment due to the time constraints and the optional nature of migrations in this context.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+## Testing
+The test coverage is intentionally limited to ensure I address a broad range of the technical assessment criteria. The current implementation serves as a starting point for my testing approach. Ideally, I would have implemented [end-to-end](https://docs.nestjs.com/fundamentals/testing#end-to-end-testing) testing for a number of endpoints.
