@@ -1,10 +1,14 @@
 import { EntityManager, EntityData, Loaded, FilterQuery } from '@mikro-orm/core'
-import { Injectable } from '@nestjs/common'
-import { Task } from '../../entities/task.entity'
+import { Injectable, Logger } from '@nestjs/common'
+import { Status, Task } from '../../entities/task.entity'
+import { Cron } from '@nestjs/schedule'
 
 @Injectable()
 export class TasksService {
-  constructor(private readonly em: EntityManager) {}
+  constructor(
+    private readonly em: EntityManager,
+    private readonly logger: Logger,
+  ) {}
 
   async create(tasks: Task[]): Promise<Loaded<Task>[]> {
     const persistedTasks = tasks.map((task: Task) =>
@@ -49,5 +53,42 @@ export class TasksService {
 
     await this.em.flush()
     return foundTask
+  }
+
+  @Cron('30 * * * * *', { name: 'update-pending-tasks' })
+  async handleCron() {
+    const forkedEm = this.em.fork()
+
+    const pendingTasks = await forkedEm.find(Task, {
+      status: Status.Pending,
+    })
+
+    const now = new Date()
+
+    const tasksToUpdate = pendingTasks.filter((task: Task) => {
+      const nextExecuteDateTime = new Date(task.next_execute_date_time)
+      return now >= nextExecuteDateTime
+    })
+
+    if (tasksToUpdate.length) {
+      this.logger.log(
+        `Found (${tasksToUpdate.length}) pending tasks to update`,
+        TasksService.name,
+      )
+
+      for (const taskToUpdate of tasksToUpdate) {
+        taskToUpdate.status = Status.Complete
+
+        this.logger.log(
+          `Task '${taskToUpdate.name}' marked as '${Status.Complete}'`,
+          TasksService.name,
+        )
+      }
+
+      await forkedEm.flush()
+      return
+    }
+
+    this.logger.log('No pending tasks found', TasksService.name)
   }
 }
