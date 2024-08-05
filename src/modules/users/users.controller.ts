@@ -54,13 +54,15 @@ export class UsersController {
     @Param('userId') userId: string,
     @Body() body: Task | Task[],
   ): Promise<Task[]> {
-    const userTasks = Array.isArray(body)
-      ? body
-      : [body].map((task: Task) => {
-          task.user = this.usersService.getReference(userId)
+    const userRef = this.usersService.getReference(userId)
 
-          return task
-        })
+    const userTasks = (Array.isArray(body) ? body : [body]).map(
+      (task: Task) => {
+        task.user = userRef
+
+        return task
+      },
+    )
 
     return await this.tasksService.create(userTasks)
   }
